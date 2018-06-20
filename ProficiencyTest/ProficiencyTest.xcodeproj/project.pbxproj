@@ -94,7 +94,10 @@
 			isa = PBXGroup;
 			children = (
 				C3BB18ED20DA1F080004A3B4 /* AppDelegate.swift */,
-				C3BB18EF20DA1F080004A3B4 /* CountryFactsViewController.swift */,
+				C3BB191C20DA21850004A3B4 /* Models */,
+				C3BB191D20DA219A0004A3B4 /* Views */,
+				C3BB191B20DA21630004A3B4 /* Controllers */,
+				C3BB191F20DA22B10004A3B4 /* Utils */,
 				C3BB18F420DA1F080004A3B4 /* Assets.xcassets */,
 				C3BB18F920DA1F080004A3B4 /* Info.plist */,
 			);
@@ -117,6 +120,43 @@
 				C3BB190F20DA1F080004A3B4 /* Info.plist */,
 			);
 			path = ProficiencyTestUITests;
+			sourceTree = "<group>";
+		};
+		C3BB191B20DA21630004A3B4 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				C3BB18EF20DA1F080004A3B4 /* CountryFactsViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		C3BB191C20DA21850004A3B4 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		C3BB191D20DA219A0004A3B4 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C3BB191E20DA21A30004A3B4 /* CustomCells */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		C3BB191E20DA21A30004A3B4 /* CustomCells */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CustomCells;
+			sourceTree = "<group>";
+		};
+		C3BB191F20DA22B10004A3B4 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
