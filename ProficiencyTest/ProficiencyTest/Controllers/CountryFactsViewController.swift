@@ -7,13 +7,14 @@
 //
 
 import UIKit
+import SDWebImage
 
 class CountryFactsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     let tableView = UITableView()
     let refreshButton = UIButton()//Mean to show  when no data(not finish)
     let indicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
-    var arrFactList: [Fact] = []
+    var countryFact: CountryFacts?
     var isDataGettingLoaded = false
     
     // MARK: - View Lifecycle methods
@@ -22,6 +23,8 @@ class CountryFactsViewController: UIViewController, UITableViewDataSource, UITab
         // Do any additional setup after loading the view, typically from a nib.
         
        // setViews()
+        
+        loadData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -82,16 +85,27 @@ class CountryFactsViewController: UIViewController, UITableViewDataSource, UITab
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return self.countryFact?.factList?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: FactCell = tableView.dequeueReusableCell(withIdentifier: "FactCell", for: indexPath) as! FactCell
         
-        cell.lblTitle.text = "Row Title \(indexPath.row)"
-        cell.lblDesc.text = "Row Description \(indexPath.row)"
-        cell.imgViw.backgroundColor = UIColor.black
         
+        if let facts = self.countryFact {
+            
+            if let factItem = facts.factList?[indexPath.row] {
+                cell.lblTitle.text = factItem.title
+                cell.lblDesc.text = factItem.description
+                cell.imgViw.backgroundColor = UIColor.clear
+                cell.imgViw.image = UIImage(named: "placeholder")
+                
+                if let imgURL = factItem.imageHref {
+                    let urlString = imgURL.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
+                    cell.imgViw.sd_setImage(with: URL(string: urlString!), placeholderImage: UIImage(named: "placeholder"))
+                }
+            }
+        }
         return cell
     }
     
@@ -99,13 +113,29 @@ class CountryFactsViewController: UIViewController, UITableViewDataSource, UITab
     
     @objc func refresh() {
         
+        if Utility.isConnectedToNetwork() == true {
+            
+            loadData()
+            
+        } else {
+            
+            Utility.showAlert(title: "No Internet Connection", message: "Make sure your device is connected to the internet.", buttonText: "OK", viewController: self)
+        }
     }
     
     // MARK: - Custom Methods
     
-    func getDataFromServer() {
+    func loadData() {
         
-        
+        NetworkManager.getDataFromServer { [weak self] (facts, err) in
+            
+            if let factList = facts {
+                
+                self?.countryFact = factList
+                
+                self?.tableView.reloadData()
+            }
+        }
     }
 
 }
