@@ -44,14 +44,12 @@ class FactCell: UITableViewCell {
         lblTitle.textColor = UIColor.black
         lblTitle.font = UIFont.systemFont(ofSize: 13)
         lblTitle.translatesAutoresizingMaskIntoConstraints = false
-        lblTitle.backgroundColor = UIColor.yellow
         
         lblDesc.numberOfLines = 0
         lblDesc.textAlignment = .left
         lblDesc.textColor = UIColor.black
         lblDesc.font = UIFont.systemFont(ofSize: 12)
         lblDesc.translatesAutoresizingMaskIntoConstraints = false
-        lblDesc.backgroundColor = UIColor.cyan
 
         imgViw.translatesAutoresizingMaskIntoConstraints = false
 

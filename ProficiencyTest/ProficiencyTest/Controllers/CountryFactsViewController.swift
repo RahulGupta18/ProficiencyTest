@@ -15,14 +15,13 @@ class CountryFactsViewController: UIViewController, UITableViewDataSource, UITab
     let refreshButton = UIButton()//Mean to show  when no data(not finish)
     let indicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
     var countryFact: CountryFacts?
-    var isDataGettingLoaded = false
+    var isLoading = false
     
-    // MARK: - View Lifecycle methods
+    // MARK:- View Lifecycle methods
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
-       // setViews()
         
         loadData()
     }
@@ -41,6 +40,38 @@ class CountryFactsViewController: UIViewController, UITableViewDataSource, UITab
         setConstraints()
     }
     
+    // MARK:- Custom Methods
+    
+    func loadData() {
+        
+        if Utility.isConnectedToNetwork() == true {
+            isLoading = true
+            indicatorView.startAnimating()
+            
+            NetworkManager.getDataFromServer { [weak self] (facts, err) in
+                
+                self?.isLoading = false
+                self?.indicatorView.stopAnimating()
+                
+                if let countryFacts = facts {
+                    
+                    self?.countryFact = countryFacts
+                    
+                    self?.countryFact?.factList = countryFacts.factList?.filter({$0.title != nil})
+                    
+                    self?.tableView.reloadData()
+                    
+                } else if let error = err {
+                    
+                    Utility.showAlert(title: "Error", message: error.localizedDescription, buttonText: "OK", viewController: self!)
+                }
+            }
+        } else {
+            
+            Utility.showAlert(title: "No Internet Connection", message: "Make sure your device is connected to the internet.", buttonText: "OK", viewController: self)
+        }
+    }
+    
     func setViews() {
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(CountryFactsViewController.refresh))
@@ -52,7 +83,7 @@ class CountryFactsViewController: UIViewController, UITableViewDataSource, UITab
         view.addSubview(indicatorView)
         
         indicatorView.hidesWhenStopped = true;
-        
+        tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
     }
     
     func setConstraints() {
@@ -74,7 +105,7 @@ class CountryFactsViewController: UIViewController, UITableViewDataSource, UITab
         
     }
     
-    //MARK: Table View Delegate & DataSource
+    //MARK:- Table View Delegate & DataSource
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableViewAutomaticDimension
@@ -109,32 +140,14 @@ class CountryFactsViewController: UIViewController, UITableViewDataSource, UITab
         return cell
     }
     
-    //MARK: Actions
+    //MARK:- Actions
     
     @objc func refresh() {
         
-        if Utility.isConnectedToNetwork() == true {
-            
-            loadData()
-            
+        if isLoading {
+            print("Data loading is in progress")
         } else {
-            
-            Utility.showAlert(title: "No Internet Connection", message: "Make sure your device is connected to the internet.", buttonText: "OK", viewController: self)
-        }
-    }
-    
-    // MARK: - Custom Methods
-    
-    func loadData() {
-        
-        NetworkManager.getDataFromServer { [weak self] (facts, err) in
-            
-            if let factList = facts {
-                
-                self?.countryFact = factList
-                
-                self?.tableView.reloadData()
-            }
+            loadData()
         }
     }
 

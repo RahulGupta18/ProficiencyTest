@@ -19,6 +19,9 @@ class NetworkManager {
         
         guard let url = URL(string: Constants.BaseURL + Constants.GetFacts) else {
             print ("Bad URL")
+            
+            let err = NSError(domain: "", code: 401, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])
+            completion(nil, err)
             return
         }
         
@@ -28,8 +31,7 @@ class NetworkManager {
         
         // Setup A Task to get Data from our URL
         
-        task = session.dataTask(with: url) {
-            data, response, error in
+        task = session.dataTask(with: url) { data, response, error in
             
             DispatchQueue.main.async {
                 // If we have errors or no data... get out of here !
@@ -50,17 +52,15 @@ class NetworkManager {
                             
                             do {
                                 let jsonData = try JSONDecoder().decode(CountryFacts.self, from: responseDataUTF8)
-                                print(jsonData)
                                 completion(jsonData, nil)
                             } catch let jsonError {
-                                print(jsonError)
                                 completion(nil, jsonError)
                             }
                         }
                     }
                 } else {
                     
-                    completion(nil, nil)
+                    completion(nil, error)
                 }
             }
         }
