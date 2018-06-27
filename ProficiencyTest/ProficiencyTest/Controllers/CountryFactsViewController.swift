@@ -59,6 +59,8 @@ class CountryFactsViewController: UIViewController, UITableViewDataSource, UITab
                     
                     self?.countryFact?.factList = countryFacts.factList?.filter({$0.title != nil})
                     
+                    self?.title = self?.countryFact?.title
+                    
                     self?.tableView.reloadData()
                     
                 } else if let error = err {
