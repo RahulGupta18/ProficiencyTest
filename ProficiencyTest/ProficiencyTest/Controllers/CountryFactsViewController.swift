@@ -74,7 +74,10 @@ class CountryFactsViewController: UIViewController, UITableViewDataSource, UITab
     
     func setViews() {
         
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(CountryFactsViewController.refresh))
+        let refreshButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(CountryFactsViewController.refresh))
+        refreshButton.accessibilityIdentifier = "refreshButton"
+        
+        self.navigationItem.rightBarButtonItem = refreshButton
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -82,6 +85,7 @@ class CountryFactsViewController: UIViewController, UITableViewDataSource, UITab
         view.addSubview(tableView)
         view.addSubview(indicatorView)
         
+        tableView.accessibilityIdentifier = "factsTable"
         indicatorView.hidesWhenStopped = true;
         tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
     }
