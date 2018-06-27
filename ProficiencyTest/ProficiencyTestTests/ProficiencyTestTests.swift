@@ -21,15 +21,32 @@ class ProficiencyTestTests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
+    /// Test API call
     
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    func testNetworkManager() {
+        
+        if (Utility.isConnectedToNetwork()) {
+            
+            let promise = expectation(description: "Completion Handler invoked")
+            
+            var responseError: Error?
+            var responseData: Decodable?
+            
+            NetworkManager.getDataFromServer { (facts, err) in
+
+                responseData = facts
+                responseError = err
+            
+                promise.fulfill()
+            }
+            
+            waitForExpectations(timeout: 10, handler: nil)
+            
+            XCTAssertNil(responseError)
+            XCTAssertNotNil(responseData)
+            
+        } else {
+            print("Internet connection is required")
         }
     }
     
