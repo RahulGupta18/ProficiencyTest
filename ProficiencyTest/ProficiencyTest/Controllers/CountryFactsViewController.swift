@@ -14,7 +14,7 @@ class CountryFactsViewController: UIViewController {
     let tableView = UITableView()
     let refreshButton = UIButton()//Mean to show  when no data(not finish)
     let indicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
-    var countryFact: CountryFacts?
+    open var countryFact: CountryFacts?
     var isLoading = false
     
     // MARK:- View Lifecycle methods
