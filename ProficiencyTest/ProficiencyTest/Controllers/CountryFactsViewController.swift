@@ -9,7 +9,7 @@
 import UIKit
 import SDWebImage
 
-class CountryFactsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class CountryFactsViewController: UIViewController {
 
     let tableView = UITableView()
     let refreshButton = UIButton()//Mean to show  when no data(not finish)
@@ -22,7 +22,6 @@ class CountryFactsViewController: UIViewController, UITableViewDataSource, UITab
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
         loadData()
     }
 
@@ -44,7 +43,7 @@ class CountryFactsViewController: UIViewController, UITableViewDataSource, UITab
     
     func loadData() {
         
-        if Utility.isConnectedToNetwork() == true {
+        if (Utility.isConnectedToNetwork()) {
             isLoading = true
             indicatorView.startAnimating()
             
@@ -54,28 +53,20 @@ class CountryFactsViewController: UIViewController, UITableViewDataSource, UITab
                 self?.indicatorView.stopAnimating()
                 
                 if let countryFacts = facts {
-                    
                     self?.countryFact = countryFacts
-                    
                     self?.countryFact?.factList = countryFacts.factList?.filter({$0.title != nil})
-                    
                     self?.title = self?.countryFact?.title
-                    
                     self?.tableView.reloadData()
-                    
                 } else if let error = err {
-                    
-                    Utility.showAlert(title: "Error", message: error.localizedDescription, buttonText: "OK", viewController: self!)
+                    Utility.showAlert(title: Constants.ALERT_ERROR_TITLE, message: error.localizedDescription, buttonText: Constants.ALERT_OK, viewController: self!)
                 }
             }
         } else {
-            
-            Utility.showAlert(title: "No Internet Connection", message: "Make sure your device is connected to the internet.", buttonText: "OK", viewController: self)
+            Utility.showAlert(title: Constants.ALERT_NO_INTERNET_TITLE, message: Constants.ALERT_NO_INTERNET_MSG, buttonText: Constants.ALERT_OK, viewController: self)
         }
     }
     
     func setViews() {
-        
         let refreshButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(CountryFactsViewController.refresh))
         refreshButton.accessibilityIdentifier = "refreshButton"
         
@@ -93,7 +84,6 @@ class CountryFactsViewController: UIViewController, UITableViewDataSource, UITab
     }
     
     func setConstraints() {
-        
         // tableview constraint
         self.tableView.translatesAutoresizingMaskIntoConstraints = false
         let viewsDictionary = ["tableView": tableView]
@@ -111,51 +101,13 @@ class CountryFactsViewController: UIViewController, UITableViewDataSource, UITab
         
     }
     
-    //MARK:- Table View Delegate & DataSource
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableViewAutomaticDimension
-    }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.countryFact?.factList?.count ?? 0
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: FactCell = tableView.dequeueReusableCell(withIdentifier: "FactCell", for: indexPath) as! FactCell
-        
-        
-        if let facts = self.countryFact {
-            
-            if let factItem = facts.factList?[indexPath.row] {
-                cell.lblTitle.text = factItem.title
-                cell.lblDesc.text = factItem.description
-                cell.imgViw.backgroundColor = UIColor.clear
-                cell.imgViw.image = UIImage(named: "placeholder")
-                
-                if let imgURL = factItem.imageHref {
-                    let urlString = imgURL.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
-                    cell.imgViw.sd_setImage(with: URL(string: urlString!), placeholderImage: UIImage(named: "placeholder"))
-                }
-            }
-        }
-        return cell
-    }
-    
     //MARK:- Actions
     
     @objc func refresh() {
-        
-        if isLoading {
-            print("Data loading is in progress")
-        } else {
+        if !isLoading {
             loadData()
+            
         }
     }
-
 }
 

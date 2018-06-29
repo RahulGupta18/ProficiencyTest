@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		67BDA260E8EEDA62A4A13F38 /* Pods_ProficiencyTestUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B49FEF61DA6203FB6044ACE0 /* Pods_ProficiencyTestUITests.framework */; };
 		BF6B07ADF62B53E633D7A61A /* Pods_ProficiencyTestTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95EBDB90A862075D14E54CBB /* Pods_ProficiencyTestTests.framework */; };
+		C320B4AA20E623A300C13DA2 /* CountryFactsViewController+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C320B4A920E623A300C13DA2 /* CountryFactsViewController+TableView.swift */; };
 		C3BB18EE20DA1F080004A3B4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BB18ED20DA1F080004A3B4 /* AppDelegate.swift */; };
 		C3BB18F020DA1F080004A3B4 /* CountryFactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BB18EF20DA1F080004A3B4 /* CountryFactsViewController.swift */; };
 		C3BB18F520DA1F080004A3B4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3BB18F420DA1F080004A3B4 /* Assets.xcassets */; };
@@ -50,6 +51,7 @@
 		95EBDB90A862075D14E54CBB /* Pods_ProficiencyTestTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProficiencyTestTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A31CB0630356F8A435C54EED /* Pods-ProficiencyTestTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProficiencyTestTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ProficiencyTestTests/Pods-ProficiencyTestTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B49FEF61DA6203FB6044ACE0 /* Pods_ProficiencyTestUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProficiencyTestUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C320B4A920E623A300C13DA2 /* CountryFactsViewController+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CountryFactsViewController+TableView.swift"; sourceTree = "<group>"; };
 		C3BB18EA20DA1F080004A3B4 /* ProficiencyTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProficiencyTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3BB18ED20DA1F080004A3B4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C3BB18EF20DA1F080004A3B4 /* CountryFactsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryFactsViewController.swift; sourceTree = "<group>"; };
@@ -178,6 +180,7 @@
 			isa = PBXGroup;
 			children = (
 				C3BB18EF20DA1F080004A3B4 /* CountryFactsViewController.swift */,
+				C320B4A920E623A300C13DA2 /* CountryFactsViewController+TableView.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -428,6 +431,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C320B4AA20E623A300C13DA2 /* CountryFactsViewController+TableView.swift in Sources */,
 				C3BB192720DA32770004A3B4 /* NetworkManager.swift in Sources */,
 				C3BB192520DA32610004A3B4 /* Utility.swift in Sources */,
 				C3BB18F020DA1F080004A3B4 /* CountryFactsViewController.swift in Sources */,

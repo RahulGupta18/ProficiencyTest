@@ -37,7 +37,13 @@ class FactCell: UITableViewCell {
         setViews()
     }
     
-    func setViews() {
+    override func updateConstraints() {
+        super.updateConstraints()
+    }
+    
+    //MARK:- User defined methods
+    
+    private func setViews() {
         
         lblTitle.numberOfLines = 1
         lblTitle.textAlignment = .left
@@ -60,7 +66,7 @@ class FactCell: UITableViewCell {
         setConstraints()
     }
     
-    func setConstraints() {
+    private func setConstraints() {
         
         //ImageView constraints
         let viewsDictionary = ["image": imgViw, "title": lblTitle, "description": lblDesc] as [String : Any]
@@ -97,9 +103,4 @@ class FactCell: UITableViewCell {
         contentView.addConstraints(constraintDescH)
         contentView.addConstraint(constraintDescBottom)
     }
-    
-    override func updateConstraints() {
-        super.updateConstraints()
-    }
-    
 }

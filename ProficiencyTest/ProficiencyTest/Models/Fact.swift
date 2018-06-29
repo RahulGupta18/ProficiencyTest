@@ -15,11 +15,9 @@ struct Fact: Decodable {
     let imageHref: String?
     
     func titleIsNullOrEmpty() -> Bool {
-        
-        if let title = title, title.isEmpty == false {
+        if let title = title, !title.isEmpty {
             return true
         }
-        
         return false
     }
 }

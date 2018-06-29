@@ -13,15 +13,13 @@ import UIKit
 
 class Utility {
     
-    static func showAlert(title: String, message: String, buttonText: String, viewController: UIViewController)
-    {
+    static func showAlert(title: String, message: String, buttonText: String, viewController: UIViewController) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: buttonText, style: UIAlertActionStyle.default, handler: nil))
         viewController.present(alert, animated: true, completion: nil)
     }
     
     static func isConnectedToNetwork() -> Bool {
-        
         var zeroAddress = sockaddr_in()
         zeroAddress.sin_len = UInt8(MemoryLayout<sockaddr_in>.size)
         zeroAddress.sin_family = sa_family_t(AF_INET)

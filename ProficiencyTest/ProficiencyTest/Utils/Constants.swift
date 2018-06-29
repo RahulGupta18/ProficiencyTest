@@ -12,4 +12,11 @@ class Constants {
     
     static let  BaseURL =  "https://dl.dropboxusercontent.com"
     static let  GetFacts =  "/s/2iodh4vg0eortkl/facts.json"
+    
+    static let ALERT_NO_INTERNET_TITLE = "No Internet Connection"
+    static let ALERT_NO_INTERNET_MSG = "Make sure your device is connected to the internet."
+    
+    static let ALERT_OK = "OK"
+    static let ALERT_ERROR_TITLE = "Error"
+
 }
